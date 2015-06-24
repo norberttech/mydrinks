@@ -1,0 +1,29 @@
+{
+    "name": "norzechowicz/mydrinks",
+    "type": "project",
+    "autoload": {
+        "psr-4": { "": "src/", "Feature\\" : "features/bootstrap/" }
+    },
+    "require": {
+        "php": "5.6.*"
+    },
+    "require-dev": {
+        "behat/behat": "^3.0",
+        "phpspec/phpspec": "^2.2"
+    },
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Norbert Orzechowicz",
+            "email": "norbert@orzechowicz.pl"
+        }
+    ],
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}

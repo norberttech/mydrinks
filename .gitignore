@@ -1,0 +1,4 @@
+/vendor/
+/bin/behat
+/bin/phpspec
+behat.yml
