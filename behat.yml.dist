@@ -3,4 +3,4 @@ default:
         domain:
             paths: [ %paths.base%/features/domain ]
             contexts:
-                - Feature\BartenderContext
+                - Feature\Domain\RecipeContext

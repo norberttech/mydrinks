@@ -1,0 +1,46 @@
+MyDrinks\Application\Command\CreateNewRecipeCommand:
+    properties:
+        name: 
+            - NotBlank: ~
+            - Length:
+                min: 2
+                max: 250
+            - MyDrinks\UserInterface\Symfony\AppBundle\Validator\Constraints\UniqueRecipeName: ~
+            
+MyDrinks\Application\Command\AddRecipeStepCommand:
+    constraints:
+        - Callback: [MyDrinks\UserInterface\Symfony\AppBundle\Validator\RecipeStepValidator, validateRequiredField]
+    properties:
+        name: 
+            - Length:
+                min: 2
+                max: 250
+        amount: 
+             - Type:
+                type: integer   
+             - GreaterThan:
+                value: 0
+        capacity: 
+            - Type:
+                type: integer
+            - GreaterThan:
+                value: 0
+                
+MyDrinks\Application\Command\UpdateRecipeDescriptionCommand:
+    properties:
+        text: 
+            - Type:
+                type: string
+        alcoholContent: 
+            - Range:
+                min: 0
+                max: 100
+                
+MyDrinks\Application\Command\UploadRecipeImageCommand:
+    properties:
+        image: 
+            - NotBlank: ~
+            - Image:
+                minWidth: 1920
+                minHeight: 1080
+                mimeTypes: ["image/jpeg"]

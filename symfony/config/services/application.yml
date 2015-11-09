@@ -1,0 +1,32 @@
+services:
+    my_drinks.slug_generator: 
+        class: MyDrinks\Infrastructure\UserInterface\SlugGenerator\SlugifyAdapter
+        arguments:
+            - @slugify
+            
+    my_drinks.serializer:
+        class: MyDrinks\Infrastructure\UserInterface\Serializer\JsonSerializer
+
+    my_drinks.command_bus:
+        class: MyDrinks\Infrastructure\Application\CommandBus\Adapter\Tactician
+        arguments:
+            - @tactician.commandbus
+            
+    my_drinks.autocomplete:
+        class: MyDrinks\Infrastructure\Application\AutoComplete\ElasticSearchAdapter
+        arguments:
+            - @elasticsearch.client
+            
+    my_drinks.search_engine:
+        class: MyDrinks\Infrastructure\Application\SearchEngine\ElasticSearchAdapter
+        arguments:
+            - @elasticsearch.client
+            - @my_drinks.slug_generator
+            
+    my_drinks.param_converter.category:
+        class:  MyDrinks\UserInterface\Symfony\AppBundle\Request\ParamConverter\CategoryConverter
+        arguments:
+            - [ @my_drinks.category.sweet ]
+            - %categories%
+        tags:
+            - { name: request.param_converter }

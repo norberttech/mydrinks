@@ -1,0 +1,77 @@
+_bazinga_jstranslation:
+    resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"
+    
+_fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+    
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+    
+home:
+    path: /
+    defaults: { _controller: AppBundle:Search:index }
+    options:
+        expose: true
+            
+supply_autocomplete:
+    path: /supplies/autocomplete/{query}
+    defaults: { _controller: AppBundle:Supply:autocomplete }
+    options:
+        expose: true
+    
+supply_autocomplete_ingredient:
+    path: /supplies/autocomplete/ingredient/{query}
+    defaults: { _controller: AppBundle:Supply:autocompleteIngredient }
+    options:
+        expose: true
+    
+recipe_display:
+    path: /przepisy/{slug}
+    defaults: { _controller: AppBundle:Recipe:display }
+   
+recipe_simplar_recipes:
+    path: /przepisy/{slug}/podobne/{size}
+    defaults: { _controller: AppBundle:Recipe:similarRecipes }
+    requirements:
+        number: \d+
+    
+recipe_category:
+    path: /kategorie/{category}
+    defaults: { _controller: AppBundle:Recipe:category }
+    
+admin_recipe_create: 
+    path: /admin/recipes
+    defaults: { _controller: AppBundle:AdminRecipe:create }
+    
+admin_recipe_remove: 
+   path: /admin/recipes/{slug}
+   defaults: { _controller: AppBundle:AdminRecipe:remove }
+   methods:  [DELETE]
+       
+admin_recipe_update_description: 
+    path: /admin/recipes/{slug}/update-description
+    defaults: { _controller: AppBundle:AdminRecipe:updateDescription }
+    
+admin_recipe_add_step: 
+    path: /admin/recipes/{slug}/add-step
+    defaults: { _controller: AppBundle:AdminRecipe:addStep }
+   
+admin_recipe_remove_step: 
+   path: /admin/recipes/{slug}/remove-step/{number}
+   defaults: { _controller: AppBundle:AdminRecipe:removeStep }
+   requirements:
+       number: \d+
+
+admin_recipe_publish:
+   path: /admin/recipes/{slug}/publish
+   defaults: { _controller: AppBundle:AdminRecipe:publish }
+   
+admin_upload_recipe_image:
+   path: /admin/recipes/{slug}/upload-image
+   defaults: { _controller: AppBundle:AdminRecipe:uploadImage }
+   methods:  [POST, GET]
+   
+admin_remove_recipe_image:
+   path: /admin/recipes/{slug}/remove-image
+   defaults: { _controller: AppBundle:AdminRecipe:removeImage }
+   methods:  [DELETE]

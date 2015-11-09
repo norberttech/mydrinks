@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}{{ 'meta.title'|trans }}{% endblock %}</title>
+        <meta name="description" content="{% block description %}{{ 'meta.description'|trans }}{% endblock %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        {% block facebookMetaTags %}
+            {% for facebookAppAdminId in facebook_app_admins %}
+            <meta property="fb:admins" content="{{ facebookAppAdminId }}" />
+            {% endfor %}
+            <meta property="og:type"        content="article" />
+            <meta property="og:url"         content="{{ app.request.scheme ~ ':' ~ url('home', {}, true) }}" />
+            <meta property="og:title"       content="{{ 'meta.title'|trans }}" />
+            <meta property="og:description" content="{{ 'meta.description'|trans }}" />
+        {% endblock %}
+        
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {{ include(':layout:headerNavigation.html.twig') }}
+        {{ render(controller('AppBundle:Search:search', {request: app.request})) }}
+
+        {% block aboveBody %}{% endblock %}
+        <div id="content" class="container-fluid">
+            {% block body %}{% endblock %}
+        </div>
+        {% block footer %}
+            {{ include(':layout:footer.html.twig') }}
+        {% endblock %}
+        <script src="{{ asset('bundles/bazingajstranslation/js/translator.min.js') }}"></script>
+        <script src="{{ url('bazinga_jstranslation_js') }}"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+        <script src="{{ asset(assetsPath~'/vendor/requirejs/require.js') }}"></script>
+        <script>
+            requirejs.config({
+                baseUrl: '{{ app.request.basePath }}/{{ assetsPath }}/js'
+            });
+            require(['common'], function(){
+                {% block requirejs %}
+                {% endblock %}
+            });
+        </script>
+        <script>
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId      : '{{ facebook_app_id }}',
+                    xfbml      : true,
+                    version    : 'v2.4'
+                });
+            };
+
+            (function(d, s, id){
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/{{ locales[app.request.locale] }}/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+    {% block javascripts %}{% endblock %}
+    </body>
+</html>

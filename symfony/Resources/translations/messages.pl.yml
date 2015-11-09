@@ -1,0 +1,185 @@
+supplies: Składniki
+glass: Szkło
+garnish: Dekoracja
+accessory: Akcesoria Barowe
+liquid: Alkohol/Soft
+ingredient: Składnik
+fulfillment: Wypełnienie
+
+application.name: Moje Drinki
+application.header.search: szukaj
+application.categories: Wybrane kategorie
+
+error.recipe.missingGlassException: Najpierw należy wybrać krok "Przygotuj szkło".
+error.recipe.missingShakerException: Najpierw należy wybrać krok "Przygotuj shaker".
+error.recipe.notEnoughLiquidException: W naczyniu nie ma wystarczającej ilości zawartości.
+error.recipe.notEnoughLiquidInShaker: W shakerze nie ma wytarczającej ilości zwartości.
+error.recipe.alreadyFilledException: Naczynie zostało już raz napełnione.
+error.recipe.emptyVesselException: Naczynie jest puste.
+error.recipe.glassCapacityOverflowException: Szkło jest już pełne.
+error.recipe.glassIsAlreadyOnFireException: Zawartość szkła zosała już podpalona.
+error.recipe.liquidsNotShakedException: Zawartość shakera musi zostac najpierw dokładnie wymieszana.
+error.recipe.shakerCapacityOverflowException: Shaker jest już pełny.
+error.recipe.stepException: Wystąpił nieoczekiwany błąd podczas dodawania kroku.
+
+search.form.query.placeholder: szukaj drinka...
+search.form.ingredients.placeholder: znajdź składnik...
+search.form.ingredients.label: Nie wiesz czego szukać? Wpisz niżej nazwę składników, które posiadasz
+search.form.submit.label: szukaj
+search.form.alcohol.label: Zawartość alkoholu:
+search.form.taste.label: wybierz smaki:
+search.form.reset.label: wyczyść
+search.no_results: Nie znaleźliśmy żadnych przepisów spełanijących podane przez Ciebie kryteria.
+
+recipe.update_description.header: Ustaw opis
+recipe.add_step.header: Dodaj krok
+
+recipe.create.information: >
+  Stworzenie przepisu nie powoduje jego automatycznego pojawienie się w wynikach wyszukiwania.
+  Aby przepis mógł być wyświetlany przez użytkowników musi on zostać opublikowany.
+recipe.form.create.name.label: Nazwa
+recipe.form.create.submit.label: Dodaj
+
+recipe.form.update_description.text.label: Opis
+recipe.form.update_description.IBAOfficial.label: Oficjalna receptura IBA
+recipe.form.update_description.alcoholContent.label: Zawartość alkoholu w %
+recipe.form.update_description.submit.label: Zapisz
+recipe.form.update_description.add_steps.label: Przejdź do przepisu
+recipe.form.update_description.taste.label: Smak
+recipe.form.update_description.taste.sweet: Słodki
+recipe.form.update_description.taste.bitter: Gorzki
+recipe.form.update_description.taste.sour: Kwaśny
+recipe.form.update_description.taste.spicy: Pikantny
+recipe.form.update_description.taste.salty: Słony
+ 
+recipe.form.upload_image.file.label: Zdjęcie
+recipe.form.upload_image.submit.label: Wgraj zdjęcie
+ 
+recipe.form.update_description.skip.description: Do uzupełnienia opisu przepisu można wrócić w dowolnej chwili.
+ 
+recipe.form.add_step.type.label: Krok
+
+recipe.form.add_step.type.prepareGlass: Przygotuj szkło
+recipe.form.add_step.type.pourIntoGlass: Nalej do szkła
+recipe.form.add_step.type.strainIntoGlassFromShaker: Oddcedź zawartość shakera do szkła
+recipe.form.add_step.type.addIngredientIntoGlass: Dodaj składnik do szkła
+recipe.form.add_step.type.stirGlassContent: Wymieszaj zawartość szkła
+recipe.form.add_step.type.fillGlassContent: Wypełnij szkło
+recipe.form.add_step.type.igniteGlassContent: Podpal zawartość szkła
+recipe.form.add_step.type.garnishGlass: Udekoruj
+recipe.form.add_step.type.emptyGlassContent: Opróżnij szkło
+recipe.form.add_step.type.muddleGlassContent: Rozgnieć zawartość szkła muddlerem
+recipe.form.add_step.type.topUpGlass: Dopełnij szkło 
+
+recipe.form.add_step.type.prepareShaker: Przygotuj shaker
+recipe.form.add_step.type.pourIntoShaker: Nalej do shakera
+recipe.form.add_step.type.shakeShakerContent: Wymieszaj zawartość shakera
+recipe.form.add_step.type.fillShaker: Wypełnij shaker
+recipe.form.add_step.type.addIngredientIntoShaker: Dodaj składnik do shakera
+
+recipe.form.add_step.action.label: Akcja
+recipe.form.add_step.action.shakeShakerContents: Wymieszaj zawartość shakera
+recipe.form.add_step.name.label: ""
+recipe.form.add_step.name.glass: Szkło
+recipe.form.add_step.name.liquid: Alkohol Soft
+recipe.form.add_step.name.ingredient: Składnik
+recipe.form.add_step.name.garnish: Garnish
+recipe.form.add_step.amount.label: Ilość
+recipe.form.add_step.capacity.label: Pojemność (ml)
+recipe.form.add_step.submit.label: Dodaj krok
+
+recipe.form.admin_search.name: Nazwa
+recipe.form.admin_search.search: Szukaj
+
+recipe: Drink "%name%" - przepis
+recipe.show: zobacz przepis »
+recipe.iba: IBA
+recipe.glass.name: Szkło - %name%
+recipe.steps: Przepis
+recipe.prepare: Przygotuj
+recipe.accessories: Niezbędne akcesoria
+recipe.image.preview: Podgląd zdjęcia
+recipe.image.add: Wgraj zdjęcie
+recipe.image.remove: Usuń zdjęcie
+recipe.image.requirements: >
+  Zdjęcie musi być zapisane w formacie jpg, musi również posiadać dokładnie 1920px szerokości oraz 1080px wysokości.
+  Wgranie nowego zdjęcie powoduje zastąpienie starego.
+recipe.list: Lista Przepisów
+recipe.list.name: Nazwa
+recipe.list.published: Opublikowany
+recipe.list.actions: Akcje
+recipe.list.actions.preview: Podgląd
+recipe.list.actions.edit: Edytuj
+recipe.list.actions.remove: Usuń
+recipe.list.totalCount: Całkowita ilość przepisow: %count%
+recipe.ingredients: Składniki
+recipe.createNew: Stwórz nowy przepis
+recipe.official_iba: Oficjalna receptura IBA
+recipe.description: Opis
+recipe.taste: Smak
+recipe.taste.sweet: Słodki
+recipe.taste.bitter: Gorzki
+recipe.taste.sour: Kwaśny
+recipe.taste.spicy: Pikantny
+recipe.taste.salty: Słony
+ 
+recipe.description.missing: Ten drink nie ma jeszcze przygotowanego opisu. Pracujemy nad jego przygotowaniem.
+recipe.goto.description: Wróć do edycji opisu
+recipe.publish: Opublikuj
+recipe.preview: Podgląd
+recipe.published: Opublikowany %date%
+recipe.description.edit: Edytuj opis
+recipe.alcoholContent: Zawartość alkoholu
+recipe.glass: Szkło typu: 
+
+#STEPS 
+recipe.step.prepareTheGlass.description: Przygotuj szkło typu %name% o pojemności %capacity% ml 
+recipe.step.pourIntoGlass.description: Nalej %capacity% ml %name% do szkła
+recipe.step.strainIntoGlassFromShaker.description: Oddcedź zawartość shakera do szkła
+recipe.step.addIngredientIntoGlass.description: Dodaj %amount% %name% do szkła
+recipe.step.stirGlassContent.description: Wymieszaj zawartość szkła łyżką
+recipe.step.fillGlass.description: Wypełnij szkło %name%
+recipe.step.igniteGlassContent.description: Podpal zawartość szkła
+recipe.step.garnishGlass.description: Udekoruj drinka przy użyciu %name%
+recipe.step.emptyTheGlass.description: Opróżnij szkło
+recipe.step.prepareTheShaker.description: Przygotuj shaker dowolnego typu 
+recipe.step.muddleGlassContent.description: Rozgnieć zawartość szkła muddlerem
+recipe.step.pourIntoShaker.description: Nalej %capacity% ml %name% do shakera
+recipe.step.shakeShakerContent.description: Wymieszaj dokładnie zawartość shakera
+recipe.step.fillShaker.description: Wypełnij shaker %name%
+recipe.step.addIngredientIntoShaker.description: Dodaj %amount% %name% do shakera
+recipe.step.topUpGlass.description: Dopełnij zawartość szkła przy użyciu %name%
+
+# META
+meta.title: Najlepsze przepisy na drinki - mojedrinki.pl
+meta.description: >
+  Przepisy na drinki słodkie, kwaśne, na wódce, na ginie, na whisky, na rumie, na likierach oraz bezalkoholowe.
+
+recipe.meta.title: Przepis na "%name%" - mojedrinki.pl
+recipe.meta.facebook.title: Przepis na "%name%" - mojedrinki.pl
+recipe.meta.twitter.title: Przepis na "%name%" - mojedrinki.pl
+recipe.twitter.share.content: >
+  Przepis na "%name%" - mojedrinki.pl #mojedrinki
+  
+# LAYOUT
+footer.navigation.privacy_policy: polityka prywatności
+footer.navigation.contact: kontakt
+footer.navigation.copyright: mojedrinki.pl ©
+
+# CATEGORIES
+category.alcohol_free: Drinki bezalkoholowe
+category.alcohol_free.description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+category.vodka_based: Drinki na wódce
+category.vodka_based.description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+category.gin_based: Drinki na ginie
+category.gin_based.description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+category.whisky_based: Drinki na whisky
+category.whisky_based.description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+category.rum_based: Drinki na rumie
+category.rum_based.description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+category.liqueur_based: Drinki na likierach
+category.liqueur_based.description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+category.sweet: Drinki słodkie
+category.sweet.description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+category.sour: Drinki kwaśne
+category.sour.description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.

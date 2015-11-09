@@ -1,0 +1,67 @@
+services:
+    tactician.middleware.isolate.transaction:
+        class: Isolate\Tactician\TransactionMiddleware
+        arguments: 
+            - @isolate
+
+    my_drinks.handler.create_new_recipe:
+        class: MyDrinks\Application\Handler\CreateNewRecipeHandler
+        arguments:
+            - @my_drinks.recipes
+            - @my_drinks.recipe.factory
+        tags:
+            - { name: tactician.handler, command: MyDrinks\Application\Command\CreateNewRecipeCommand }
+            
+    my_drinks.handler.add_recipe_step:
+        class: MyDrinks\Application\Handler\AddRecipeStepHandler
+        arguments:
+            - @my_drinks.recipes
+        tags:
+            - { name: tactician.handler, command: MyDrinks\Application\Command\AddRecipeStepCommand }
+ 
+    my_drinks.handler.update_recipe_description:
+        class: MyDrinks\Application\Handler\UpdateRecipeDescriptionHandler
+        arguments:
+            - @my_drinks.recipes
+        tags:
+            - { name: tactician.handler, command: MyDrinks\Application\Command\UpdateRecipeDescriptionCommand }
+ 
+    my_drinks.handler.remove_recipe_step:
+        class: MyDrinks\Application\Handler\RemoveRecipeStepHandler
+        arguments:
+            - @my_drinks.recipes
+        tags:
+            - { name: tactician.handler, command: MyDrinks\Application\Command\RemoveRecipeStepCommand }
+ 
+    my_drinks.handler.remove_recipe:
+        class: MyDrinks\Application\Handler\RemoveRecipeHandler
+        arguments:
+            - @my_drinks.recipes
+        tags:
+            - { name: tactician.handler, command: MyDrinks\Application\Command\RemoveRecipeCommand }
+
+    my_drinks.handler.publish_recipe:
+        class: MyDrinks\Application\Handler\PublishCommandHandler
+        arguments:
+            - @my_drinks.recipes
+        tags:
+            - { name: tactician.handler, command: MyDrinks\Application\Command\PublishRecipeCommand }
+
+    my_drinks.handler.upload_recipe_image:
+        class: MyDrinks\Application\Handler\UploadRecipeImageHandler
+        arguments:
+            - @my_drinks.recipes
+            - @my_drinks.recipe.image.storage
+            - @my_drinks.images.filesystem
+        tags:
+            - { name: tactician.handler, command: MyDrinks\Application\Command\UploadRecipeImageCommand }
+
+
+    my_drinks.handler.remove_recipe_image:
+        class: MyDrinks\Application\Handler\RemoveRecipeImageHandler
+        arguments:
+            - @my_drinks.recipes
+            - @my_drinks.recipe.image.storage
+        tags:
+            - { name: tactician.handler, command: MyDrinks\Application\Command\RemoveRecipeImageCommand }
+            

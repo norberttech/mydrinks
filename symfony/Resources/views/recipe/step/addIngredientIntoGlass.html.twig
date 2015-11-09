@@ -1,0 +1,8 @@
+{{
+    'recipe.step.addIngredientIntoGlass.description'|trans(
+        {
+            "%name%" : step.ingredientName|transchoice(step.amount.value, {}, 'supplies'),
+            "%amount%": step.amount.value
+        }
+    )
+}}

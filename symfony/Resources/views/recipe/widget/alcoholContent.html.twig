@@ -1,0 +1,25 @@
+{# 
+    @var int alcoholContent 
+#}
+<div class="alcohol-content progress">
+    {% if (alcoholContent == 0) %}
+        {% set progressBarClass = "progress-bar" %}
+    {% elseif (alcoholContent < 20) %}
+        {% set progressBarClass = "progress-bar progress-bar-info" %}
+    {% elseif (alcoholContent < 40) %}
+        {% set progressBarClass = "progress-bar progress-bar-success" %}
+    {% elseif (alcoholContent < 80) %}
+        {% set progressBarClass = "progress-bar progress-bar-warning" %}
+    {% else %}
+        {% set progressBarClass = "progress-bar progress-bar-danger" %}
+    {% endif %}
+    
+    <div class="{{ progressBarClass }}" 
+         role="progressbar" 
+         aria-valuenow="{{ alcoholContent }}" 
+         aria-valuemin="0" 
+         aria-valuemax="100" 
+         style="width: {% if alcoholContent == 0  %}100{% else %}{{ alcoholContent }}{% endif %}%;"> 
+        {{ alcoholContent }}%
+    </div>
+</div>

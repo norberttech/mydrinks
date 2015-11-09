@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset(assetsPath~'/css/search.css') }}" />
+{% endblock %}
+
+{% block aboveBody %}
+{% if drinks.currentPage == 0 and drinks.criteria.areEmpty %}
+    {{ include(':layout:carousel.html.twig') }}
+{% endif %}
+{% endblock %}
+
+{% block body %}
+    <div id="drinks" class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            {% for recipe in drinks.items %}
+                {{ include(':search/widget:recipeSearchResultPreview.html.twig', {recipe: recipe}) }}
+            {% else %}
+                <div class="well">
+                    <p>{{ 'search.no_results'|trans }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+    
+    {% if drinks.pagesCount >= 1 %}
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            {{ include(':search/widget:pagination.html.twig', {results: drinks, route: 'home'}) }}
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block requirejs %}
+    require(['app/page/search_index']);
+{% endblock %}

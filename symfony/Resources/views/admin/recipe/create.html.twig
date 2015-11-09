@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset(assetsPath~'/css/admin.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-12">
+                    <a href="{{ url('admin_recipe_create') }}"><h1>{{ 'recipe.list'|trans }}</h1></a>
+                    <div>
+                        {{ form_start(search) }}
+                        {{ form_widget(search) }}
+                        {{ form_end(search) }}
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>{{ 'recipe.list.name'|trans }}</th>
+                            <th>{{ 'recipe.list.published'|trans }}</th>
+                            <th>{{ 'recipe.list.actions'|trans }}</th>
+                        </tr>
+                        </thead>
+                        {% for item in results.items %}
+                            <tr>
+                                <td><strong>{{ item.name }}</strong></td>
+                                <td>
+                                    {% if item.isPublished %}
+                                        {{ item.publicationDate|date('Y-m-d H:i:s') }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <form action="{{ url('admin_recipe_remove', {slug: item.slug}) }}" method="POST" id="remove-recipe-{{ item.slug }}">
+                                        <input type="hidden" name="_method" value="DELETE" />
+                                        <button type="submit" class="btn btn-danger btn-xs pull-right">{{ 'recipe.list.actions.remove'|trans }}</button>
+                                    </form>
+                                    <a href="{{ url('admin_recipe_add_step', {slug: item.slug}) }}" class="btn btn-primary btn-xs pull-right">{{ 'recipe.list.actions.edit'|trans }}</a>
+                                    <a target="_blank" href="{{ url('recipe_display', {slug: item.slug}) }}" class="btn btn-default btn-xs pull-right">{{ 'recipe.list.actions.preview'|trans }}</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    {% if results.pagesCount >= 1 %}
+                        {{ include(':search/widget:pagination.html.twig', {results: results, route: 'admin_recipe_create'}) }}
+                    {% endif %}
+                    <div>
+                        <strong>{{ 'recipe.list.totalCount'|trans({'%count%': results.totalCount}) }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <h1>{{ 'recipe.createNew'|trans }}</h1>
+            <div class="well">
+                <p>{{ 'recipe.create.information'|trans }}</p>
+            </div>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+        <div class="col-lg-2">
+        </div>
+    </div>
+{% endblock %}

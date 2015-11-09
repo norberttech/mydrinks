@@ -1,0 +1,18 @@
+services:
+    my_drinks.twig_extension.recipe:
+        class: MyDrinks\UserInterface\Symfony\AppBundle\Twig\Extension\RecipeExtension
+        public: false
+        arguments:
+            - @my_drinks.recipe.image.storage
+            - @my_drinks.image.url_resolver
+        tags:
+            - { name: twig.extension }
+            
+    my_drinks.twig_extension.glass:
+        class: MyDrinks\UserInterface\Symfony\AppBundle\Twig\Extension\GlassExtension
+        public: false
+        arguments:
+            - %kernel.public_dir%
+            - %assets_glass_url_prefix%
+        tags:
+            - { name: twig.extension }

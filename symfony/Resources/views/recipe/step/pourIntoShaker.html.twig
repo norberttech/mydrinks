@@ -1,0 +1,8 @@
+{{
+    'recipe.step.pourIntoShaker.description'|trans(
+        {
+            "%name%" : step.name|transchoice(step.capacity.milliliters, {}, 'supplies'),
+            "%capacity%": step.capacity.milliliters
+        }
+    )
+}}

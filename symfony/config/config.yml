@@ -1,0 +1,124 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+
+parameters:
+    locale: pl
+    assets_directory: 'assets'
+    assets_glass_url_prefix: '%assets_directory%/img/glass'
+    kernel.public_dir: '%kernel.root_dir%/../public'
+    categories: 
+        sweet:
+            pl: drinki-slodkie
+
+
+framework:
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    translator:      { fallback: %locale% }
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        assets_version: 2
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        handler_id:  ~
+    fragments:       ~
+    http_method_override: true
+
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    globals:
+        assetsPath: %assets_directory%
+        facebook_app_id: %facebook_app_id%
+        locales: { pl: "pl_PL", en: "en_EN" }
+        facebook_app_admins: %facebook_app_admins%
+        categories: %categories%
+    form_themes:
+        - 'bootstrap_3_horizontal_layout.html.twig'
+        
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:        [ ]
+    filters:
+        cssrewrite: ~
+        
+bazinga_js_translation:
+    locale_fallback: %locale%
+    
+tactician:
+    commandbus:
+        default:
+            middleware:
+                - tactician.middleware.isolate.transaction
+                - tactician.middleware.command_handler
+
+oneup_flysystem:
+    adapters:
+        recipes:
+            local:
+                directory: %recipes_upload_target_dir%
+        images:
+            local:
+                directory: %recipe_images_upload_target_dir%
+    filesystems:
+        recipes:
+            adapter: recipes
+        images:
+            adapter: images
+            
+liip_imagine:
+    resolvers:
+        default:
+            web_path:
+                web_root: %kernel.root_dir%/../public
+                cache_prefix:  assets/compiled/img/cache
+    data_loader: http_loader
+    filter_sets:
+        glass_image:
+            data_loader: http_loader
+            filters:
+                background: { color: '#ffffff' }
+                thumbnail: 
+                    size: [150, 150]
+                    mode: outbound
+                    png_compression_level: 0
+        recipe_list_thumbnail:
+            filters:
+                thumbnail: 
+                    size: [350, 240]
+                    mode: outbound 
+        recipe_image_full_hd:
+            filters:
+                background: 
+                    size: [1920, 1080]
+                    color: '#fff' 
+        recipe_image_bg_lg:
+            filters:
+                thumbnail: 
+                    size: [1600, 800] 
+                    mode: outbound 
+        recipe_image_bg_md:
+            filters:
+                thumbnail: 
+                    size: [1200, 400] 
+                    mode: outbound     
+        recipe_image_bg_sm:
+            filters:
+                thumbnail: 
+                    size: [990, 300] 
+                    mode: outbound 
+        recipe_image_bg_xs:
+            filters:
+                thumbnail: 
+                    size: [480, 200] 
+                    mode: outbound 

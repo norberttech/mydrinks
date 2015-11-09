@@ -1,0 +1,92 @@
+@import "../vendor/bootstrap/less/bootstrap.less";
+@import "variables.less";
+
+body { padding-top: 70px; }
+
+.typeahead { z-index: 1051;}
+
+.logo {
+    color: black;
+    h1 {
+        margin: 0
+    }
+    h2 {
+        margin: 0
+    }
+}
+
+.inline {
+    display: inline;
+}
+
+.logo:hover {
+    text-decoration: none;
+    color: @color-black;
+}
+
+.inverse {
+    color: @color-white;
+}
+
+
+#search {
+    display: none;
+    position: fixed;
+    top: 50px;
+    z-index: 10000;
+    width: 100%;
+    background: @gray-lighter;
+    padding-bottom: 20px;
+
+    .box-shadow(0px 20px 30px #888888);
+
+    h1 {
+        font-size: 48pt;
+    }
+
+    #search-form {
+        margin-top: 25pt;
+
+        #search-ingredient-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            margin-top: 10px;
+            margin-bottom:10px;
+
+            li {
+                margin-right: 10px;
+                padding-left: 0;
+            }
+        }
+    }
+}
+
+#footer {
+    margin-top: 40px;
+    border-top: 1px solid @color-gray;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+
+#drinks {
+    margin-top: -20px;
+    padding-top: 40px;
+
+    .drink {
+        margin-bottom: 40px;
+        height: 440px;
+        overflow: hidden;
+
+        h3 {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .image {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    }
+}

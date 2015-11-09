@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset(assetsPath~'/css/admin.css') }}" />
+{% endblock %}
+
+{% form_theme form _self %}
+
+{% block _recipe_step_amount_row %}
+    <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}" style="display:none;">
+        {{ form_label(form) }}
+        <div class="{{ block('form_group_class') }}">
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block _recipe_step_name_row %}
+    <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+        {{ form_label(form) }}
+        <div class="{{ block('form_group_class') }}">
+            <input type="text" id="recipe_step_name_autocomplete" autocomplete="off" value="{{ form.vars.data|transchoice(0, {}) }}" required="required" class="form-control">
+            <input type="hidden" name="recipe_step[name]" id="recipe_step_name" value="{{ form.vars.data }}">
+            {{ form_errors(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-4">
+            <a href="{{ url('admin_recipe_create') }}" class="btn btn-primary btn-block">{{ 'recipe.list'|trans }}</a>
+        </div>
+        <div class="col-lg-4">
+            <h1>{{ 'recipe.add_step.header'|trans }}</h1>
+            <br />
+            {% for flashMessage in app.session.flashbag.get('error') %}
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+            
+            {{ form_start(form, {attr: {novalidate: "novalidate"}}) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+        <div class="col-lg-4">
+            {{ render(controller('AppBundle:AdminRecipe:details', {'slug' : slug })) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block requirejs %}
+    require(['app/page/admin_recipe_add_step']);
+{% endblock %}

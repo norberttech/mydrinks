@@ -1,0 +1,172 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset(assetsPath~'/css/recipe.css') }}" />
+{% endblock %}
+
+{% block title %}{{ 'recipe.meta.facebook.title'|trans({"%name%": recipe.name}) }}{% endblock %}
+{% block description %}{% if recipe.description.hasText %}{{ recipe.description.text|striptags }}{% else %}{{ 'recipe.description.missing'|trans }}{% endif %}{% endblock %}
+
+{% block facebookMetaTags %}
+{% for facebookAppAdminId in facebook_app_admins %}
+<meta property="fb:admins" content="{{ facebookAppAdminId }}" />
+{% endfor %}
+<meta property="og:type"        content="article" />
+<meta property="og:url"         content="{{ app.request.scheme ~ ':' ~ url('recipe_display', {slug: slug}, true) }}" />
+<meta property="og:title"       content="{{ 'recipe.meta.facebook.title'|trans({"%name%": recipe.name}) }}" />
+<meta property="og:image"       content="{% if hasImageForRecipe(slug)%}{{ getImagePathForRecipe(slug) | imagine_filter('recipe_image_bg_lg') }}{% else %}{{ (assetsPath ~ '/img/recipe/default-image.jpg') | imagine_filter('recipe_image_bg_lg') }}{% endif %}" />
+<meta property="og:description" content="{% if recipe.description.hasText %}{{ recipe.description.text|striptags }}{% else %}{{ 'recipe.description.missing'|trans }}{% endif %}" />
+
+<meta name="twitter:title" content="{{ 'recipe.meta.twitter.title'|trans({"%name%": recipe.name}) }}">
+<meta name="twitter:description" content="{% if recipe.description.hasText %}{{ recipe.description.text|striptags|truncate(150, true) }}{% else %}{{ 'recipe.description.missing'|trans }}{% endif %}">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@moje_drinki">
+<meta name="twitter:image" content="{% if hasImageForRecipe(slug)%}{{ getImagePathForRecipe(slug) | imagine_filter('recipe_image_bg_sm') }}{% else %}{% endif %}">
+{% endblock %}
+
+{% block aboveBody %}
+<div id="recipe-image">
+    <div  class="image image-lg hidden-md hidden-sm hidden-xs" style="background-image: url('{% if hasImageForRecipe(slug)%}{{ getImagePathForRecipe(slug) | imagine_filter('recipe_image_bg_lg') }}{% else %}{{ (assetsPath ~ '/img/recipe/default-image.jpg') | imagine_filter('recipe_image_bg_lg') }}{% endif %}');"></div>
+    <div  class="image image-md hidden-lg hidden-sm hidden-xs" style="background-image: url('{% if hasImageForRecipe(slug)%}{{ getImagePathForRecipe(slug) | imagine_filter('recipe_image_bg_md') }}{% else %}{{ (assetsPath ~ '/img/recipe/default-image.jpg') | imagine_filter('recipe_image_bg_md') }}{% endif %}');"></div>
+    <div  class="image image-sm hidden-lg hidden-md hidden-xs" style="background-image: url('{% if hasImageForRecipe(slug)%}{{ getImagePathForRecipe(slug) | imagine_filter('recipe_image_bg_sm') }}{% else %}{{ (assetsPath ~ '/img/recipe/default-image.jpg') | imagine_filter('recipe_image_bg_sm') }}{% endif %}');"></div>
+    <div  class="image image-xs hidden-lg hidden-md hidden-sm" style="background-image: url('{% if hasImageForRecipe(slug)%}{{ getImagePathForRecipe(slug) | imagine_filter('recipe_image_bg_xs') }}{% else %}{{ (assetsPath ~ '/img/recipe/default-image.jpg') | imagine_filter('recipe_image_bg_xs') }}{% endif %}');"></div>
+
+    <div class="grayscale"></div>
+</div>
+{% endblock %}
+    
+{% block body %}
+<div id="recipe">
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <h2 class="title inline">
+                {{ 'recipe'|trans({"%name%": recipe.name}) }}
+            </h2>
+            {% if recipe.description.hasKnownAlcoholContent %}
+                <p class="inverse lead">
+                    <strong>{{ 'recipe.alcoholContent'|trans }}</strong>
+                </p>
+                {{ include(':recipe/widget:alcoholContent.html.twig', {alcoholContent: recipe.description.alcoholContent}) }}
+            {% endif %}
+            
+            {% if recipe.description.taste.defined %}
+                <p class="lead">
+                    <b>{{ 'recipe.taste'|trans }}</b>
+                    {% if recipe.description.taste.sweet %}<span class="label label-primary">{{ 'recipe.taste.sweet'|trans }}</span>{% endif %}
+                    {% if recipe.description.taste.bitter %}<span class="label label-primary">{{ 'recipe.taste.bitter'|trans }}</span>{% endif %}
+                    {% if recipe.description.taste.sour %}<span class="label label-primary">{{ 'recipe.taste.sour'|trans }}</span>{% endif %}
+                    {% if recipe.description.taste.spicy %}<span class="label label-primary">{{ 'recipe.taste.spicy'|trans }}</span>{% endif %}
+                    {% if recipe.description.taste.salty %}<span class="label label-primary">{{ 'recipe.taste.salty'|trans }}</span>{% endif %}
+                </p>
+            {% endif %}
+
+            <div class="glass text-center">
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{ 'recipe.glass.name'|trans({'%name%' : recipe.glass.name|trans({}, 'supplies')}) }}</div>
+                    <div class="panel-body">
+                        <img src="{{ getGlassImage(recipe.glass.name) | imagine_filter('glass_image') }}" alt="{{ recipe.name }} - {{ recipe.glass.name }}"/>
+                    </div>
+                </div>
+            </div>
+
+            
+            {% if recipe.description.hasText %}
+                <p class="lead">{{ recipe.description.text }}</p>
+            {% else %}
+                <p class="lead">{{ 'recipe.description.missing'|trans }}</p>
+            {% endif %}
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ 'recipe.prepare'|trans }}</h3>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        <b>{{ 'recipe.accessories'|trans }}</b>
+                    </p>
+                    <ul>
+                        {% if recipe.isGlassRequired %}
+                            <li>{{ 'recipe.glass'|trans }} {{ recipe.glass.name|transchoice(recipe.glass.amount.value, {}, 'supplies') }}{% if recipe.glass.amount.value > 1 %} x {{ recipe.glass.amount.value }} {% endif %} - {{ recipe.glass.capacity.milliliters }} ml</li>
+                        {% endif %}
+                        {% if recipe.isShakerRequired %}
+                            <li>{{ 'accessory.shaker'|trans({}, 'supplies') }}</li>
+                        {% endif %}
+                        {% if recipe.isMuddlerRequired %}
+                            <li>{{ 'accessory.muddler'|trans({}, 'supplies') }}</li>
+                        {% endif %}
+                    </ul>
+                    
+                    <p>
+                        <b>{{ 'recipe.ingredients'|trans }}</b>
+                    </p>
+                    {% if recipe.steps|length  %}
+                        <ul>
+                            {% for liquid in recipe.steps.liquids %}
+                                <li>
+                                    {{ liquid.name|transchoice(0, {}, 'supplies')|capitalize }} - {{ liquid.capacity.milliliters }} ml
+                                </li>
+                            {% endfor %}
+                            {% for integredient in recipe.steps.ingredients %}
+                                <li>
+                                    {{ integredient.name|transchoice(0, {}, 'supplies')|capitalize }}{% if integredient.amount.value > 0 %} x {{ integredient.amount.value }}{% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ 'recipe.steps'|trans }}</h3>
+                </div>
+                <div class="panel-body">
+                    {% if recipe.steps|length  %}
+                        <ol>
+                            {% for step in recipe.steps %}
+                                <li>{{ renderStep(step) }}</li>
+                            {% endfor %}
+                        </ol>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="social-media">
+                <div class="fb-like" data-href="{{ app.request.scheme ~ ':' ~ url('recipe_display', {slug: slug}, true)|url_encode }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+                <div class="twitter-share">
+                    <a href="https://twitter.com/share" class="twitter-share-button text-hide" data-url="{{ app.request.scheme ~ ':' ~ url('recipe_display', {slug: slug}, true) }}" data-text="{{ 'recipe.twitter.share.content'|trans({"%name%": recipe.name}) }}" data-dnt="true">Tweet</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ render(controller('AppBundle:Recipe:similarRecipes', { slug: slug, size: 4 })) }}
+    
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <div class="fb-comments" data-href="{{ app.request.scheme ~ ':' ~ url('recipe_display', {slug: slug}, true) }}" data-numposts="5" data-width="100%"></div>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block requirejs %}
+    require(['app/page/recipe_display']);
+{% endblock %}
+
+{% block javascripts %}
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+{% endblock %}

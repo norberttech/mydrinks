@@ -1,0 +1,42 @@
+services:
+    my_drinks.recipe.filesystem:
+        class: MyDrinks\Infrastructure\Application\Filesystem\FlySystemAdapter
+        arguments: 
+            - @oneup_flysystem.recipes_filesystem
+        public: false
+
+    my_drinks.images.filesystem:
+        class: MyDrinks\Infrastructure\Application\Filesystem\FlySystemAdapter
+        arguments: 
+            - @oneup_flysystem.images_filesystem
+        public: false
+        
+    my_drinks.recipe.storage:
+        class: MyDrinks\Infrastructure\Application\Recipe\JsonFilesystemStorage
+        arguments:
+            - @my_drinks.recipe.filesystem
+            - @my_drinks.slug_generator
+            - @my_drinks.serializer
+    
+    my_drinks.recipe.image.storage:
+        class: MyDrinks\Infrastructure\Application\Recipe\FilesystemImageStorage
+        arguments:
+            - @my_drinks.images.filesystem
+            
+    my_drinks.recipe.factory:
+        class: MyDrinks\Application\Recipe\Factory\DomainFactory
+              
+    my_drinks.recipes:
+        class: MyDrinks\Infrastructure\Domain\StorageRecipes
+        arguments: 
+            - @my_drinks.recipe.storage
+            - @isolate
+            
+        
+    my_drinks.recipe.exception_listener:
+        class: MyDrinks\UserInterface\Symfony\AppBundle\EventListener\RecipeExceptionListener
+        arguments:
+            - @router
+            - @translator
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }

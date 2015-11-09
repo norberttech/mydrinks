@@ -1,0 +1,13 @@
+parameters:
+    secret: ThisTokenIsNotSoSecretChangeIt
+    recipes_upload_target_dir: '%kernel.root_dir%/../var/recipes'
+    recipe_images_upload_target_dir: '%kernel.root_dir%/../public/upload/recipes'
+    recipe_images_url_prefix: '/upload/recipes'
+    aws_s3_key: change_me
+    aws_s3_secret: change_me
+    aws_s3_images_bucket: change_me
+    aws_s3_images_bucket_region: change_me
+    aws_s3_images_bucket_prefix: change_me
+    elasticsearch_host: 127.0.0.1
+    facebook_app_id: change_me
+    facebook_app_admins: []

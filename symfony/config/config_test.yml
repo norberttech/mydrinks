@@ -1,0 +1,20 @@
+imports:
+    - { resource: config_dev.yml }
+
+parameters:
+    recipes_upload_target_dir: '%kernel.root_dir%/../var/recipes/test'
+    
+services:
+    my_drinks.search_engine:
+        class: MyDrinks\Infrastructure\Application\SearchEngine\DummyAdapter
+    
+framework:
+    test: ~
+    session:
+        storage_id: session.storage.mock_file
+    profiler:
+        collect: false
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false

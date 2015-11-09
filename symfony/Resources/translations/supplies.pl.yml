@@ -1,0 +1,38 @@
+# GLASS
+glass.highball: "Highball"
+glass.collins: "Collins"
+glass.hurricane: "Hurricane"
+
+# Shaker
+accessory.shaker: "Shaker dowolnego typu"
+accessory.muddler: "Muddler"
+
+# GARNISH
+garnish.orange_slice: "{0} plasterek pomarańczy|[1,5[ plasterki pomarańczy|[5,Inf[ plasterków pomarańczy"
+garnish.lime_slice: "{0} plasterek limonki|{1} plasterka limonki|]1,Inf[ plasterków limonki"
+garnish.lemon_slice: "{0} plasterek cytryny|{1} plasterka cytryny|]1,Inf[ plasterków cytryny"
+garnish.orange_slice: "{0} plasterek pomarańczy|{1} plasterka pomarańczy|]1,Inf[ plasterków pomarańczy"
+garnish.ginger_slice: "{0} plasterek imbiru|{1} plasterka imbiru|]1,Inf[ plasterków imbiru"
+garnish.carambola_slice: "{0} plasterek karamboli|{1} plasterka karamboli|[1,Inf[ plasterków karamboli"
+
+
+# FULFILLMENT
+fulfillment.ice: "{0} lód w kostkach|[1,Inf[ kostkami lodu" 
+ 
+# INGREDIENTS
+ingredient.ice: "{0} kostki lodu|{1} kostka lodu|[1, 5[ kostki lodu|[5,Inf[ kostek lodu"
+ingredient.sugar_teaspoon: "{0} łyżeczka cukru|{1} łyżeczka cukru| [1, 5[ łyżeczki cukru|[5,Inf[ łyżeczek cukru"
+ingredient.brown_sugar_teaspoon: "{0} łyżeczka cukru trzcinowego|{1} łyżeczkę cukru trzcinowego| [1, 5[ łyżeczki cukru trzcinowego|[5,Inf[ łyżeczek cukru trzcinowego"
+
+# LIQUIDS
+liquid.gin: "{0} gin|[1,Inf[ ginu"
+liquid.vodka: "{0} wódka|[1,Inf[ wódki"
+liquid.liqueur.orange: "{0} likier pomarańczowy|[1,Inf[ likieru pomarańczowego"
+liquid.rum.white: "{0} biały rum|[1,Inf[ białego rumu"
+liquid.whisky.corn: "{0} whisky z kukurydzy|[1,Inf[ whisky z kukurydzy"
+liquid.brandy: "[0,Inf[ brandy"
+liquid.syroup.sugare: "{0} syrop cukrowy|[1,Inf[ syropu cukrowego"
+liquid.juice.apple: "{0} sok jabłkowy|[1,Inf[ soku jabłkowego"
+liquid.whipped_cream: "{0} bita śmietana|[1,Inf[ bitej śmietany"
+liquid.cola: "{0} cola|[1,Inf[ coli"
+

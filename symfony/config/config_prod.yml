@@ -1,0 +1,42 @@
+imports:
+    - { resource: config.yml }
+
+parameters:
+    assets_directory: 'assets/compiled'
+  
+services:
+    my_drinks.image.url_resolver:
+        class: MyDrinks\Infrastructure\Application\Recipe\SimpleResolver
+
+monolog:
+    handlers:
+        main:
+            type:         fingers_crossed
+            action_level: error
+            handler:      nested
+        nested:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
+        console:
+            type:  console
+
+oneup_flysystem:
+    adapters:
+        images:
+            awss3v3:
+                client: my_drinks.s3_client
+                bucket: %aws_s3_images_bucket%
+                prefix: %aws_s3_images_bucket_prefix%
+                
+liip_imagine:
+    data_loader: s3_loader
+    filter_sets:
+        glass_image:
+            filters:
+                background: { color: '#ffffff' }
+                thumbnail: 
+                    size: [150, 150]
+                    mode: outbound
+                    png_compression_level: 0
+            data_loader: http_loader

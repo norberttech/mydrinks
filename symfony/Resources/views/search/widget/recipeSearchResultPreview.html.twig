@@ -1,0 +1,21 @@
+{#
+    @var \MyDrinks\Application\SearchEngine\Result\Recipe recipe
+#}
+<div class="drink col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <a href="{{ url('recipe_display', {slug: recipe.slug}) }}"><h3>{{ recipe.name }}</h3></a>
+    <div class="image">
+        <a href="{{ url('recipe_display', {slug: recipe.slug}) }}">
+            {% if hasImageForRecipe(recipe.slug) %}
+                <img src="{{ getImagePathForRecipe(recipe.slug) | imagine_filter('recipe_list_thumbnail') }}" alt="{{ recipe.name }}" />
+            {% else %}
+                <img src="{{ (assetsPath ~ '/img/recipe/default-image.jpg') | imagine_filter('recipe_list_thumbnail') }}" alt="{{ recipe.name }}" />
+            {% endif %}
+        </a>
+    </div>
+    {% if recipe.description|length %}
+        <p>{{ recipe.description|truncate(110, true) }}</p>
+    {% else %}
+        <p>{{ 'recipe.description.missing'|trans }}</p>
+    {% endif %}
+    <p><a class="btn btn-primary pull-right" href="{{ url('recipe_display', {slug: recipe.slug}) }}" role="button">{{ 'recipe.show'|trans }}</a></p>
+</div>

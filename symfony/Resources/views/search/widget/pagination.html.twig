@@ -1,0 +1,38 @@
+{#
+    @var \MyDrinks\Application\SearchEngine\SearchResultSlice results 
+    @var route
+    @var array parameters
+#}
+{% if parameters is not defined %}
+{% set parameters = {} %}
+{% endif %}
+<nav>
+    <ul class="pagination">
+        {% if results.currentPage - 5 > 0 %}
+            {% set startPage = results.currentPage - 5 %}
+        {% else %}
+            {% set startPage = 0 %}
+        {% endif %}
+
+        {% if results.currentPage > 0 %}
+            <li>
+                <a href="{{ url(route, app.request.query.all|merge(parameters)|merge({"start": ((results.currentPage - 1) * results.criteria.size)}) ) }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        {% endif %}
+
+        {% for i in startPage..startPage+9 if i <= results.pagesCount %}
+            {% set parameters = app.request.query.all|merge(parameters)|merge({"start": i * results.criteria.size}) %}
+            <li{% if results.currentPage == i %} class="active"{% endif %}><a href="{{ url(route, parameters) }}">{{ i + 1 }}</a></li>
+        {% endfor %}
+
+        {% if results.currentPage < results.getPagesCount %}
+            <li>
+                <a href="{{ url(route, app.request.query.all|merge(parameters)|merge({"start": ((results.currentPage + 1) * results.criteria.size)}) ) }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>

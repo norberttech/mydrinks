@@ -1,0 +1,24 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" aria-expanded="false">
+                <a data-toggle="search" href="#">{{ 'application.header.search'|trans }} <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+            </button>
+            <a class="navbar-brand" href="{{ url('home') }}">{{ 'application.name'|trans }}</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav hidden-md hidden-sm hidden-xs">
+                {% for id in categories|keys %}
+                    {% set categoryName = 'category.' ~ id %}
+                    <li><a href="{{ url('recipe_category', {category: categories[id][app.request.locale]}) }}">{{ categoryName|trans }}</a></li>
+                {% endfor %}
+            </ul>
+            
+            <ul class="nav navbar-nav navbar-right">
+                <li><a data-toggle="search" href="#">{{ 'application.header.search'|trans }} <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="My Drinks" default="welcome" basedir="." description="My Drinks">
+    
+    <property name="dir.root" value="${application.startdir}"/>
+    <property name="dir.bin" value="${dir.root}/bin"/>
+    
+    <target name="welcome" hidden="true">
+        <echo msg="Welcome to My Drinks project build configuration."/>
+        <echo msg="Run: bin/phing -list"/>
+        <echo msg="to get all available tasks"/>
+    </target>
+
+    <target name="build" depends="
+            tests,
+            composer:install:production,
+            grunt:production,
+            create-artifact
+        ">
+    </target>
+    
+    <target name="tests" depends="
+            tests:phpspec, 
+            tests:behat:domain,
+            tests:phpunit:integration,
+            tests:phpunit:functional
+        ">
+        <echo msg="Success: All tests passed."/>
+    </target>
+    
+    <target name="tests:phpspec">
+        <exec command="${dir.bin}/phpspec run --format=dot" passthru="true" checkreturn="true" level="error" />
+    </target>
+
+    <target name="tests:behat:domain">
+        <exec command="${dir.bin}/behat --suite=domain --format=progress" passthru="true" checkreturn="true" level="error" />
+    </target>
+
+    <target name="tests:phpunit:integration">
+        <exec command="${dir.bin}/phpunit --testsuite=integration" passthru="true" checkreturn="true" level="error" />
+    </target>
+
+    <target name="tests:phpunit:functional">
+        <exec command="${dir.bin}/phpunit --testsuite=functional" passthru="true" checkreturn="true" level="error" />
+    </target>
+    
+    <target name="grunt:production">
+        <exec executable="node_modules/.bin/grunt" passthru="true" dir="${dir.root}" checkreturn="true" level="info">
+            <arg line="production" />
+        </exec>
+    </target>
+
+    <target name="composer:install:production">
+        <exec executable="composer" passthru="true" dir="${dir.root}" checkreturn="true" level="info">
+            <arg value="install" />
+            <arg value="--no-interaction" />
+            <arg value="--prefer-dist" />
+            <arg value="--optimize-autoloader" />
+            <arg value="--no-dev" />
+        </exec>
+    </target>
+    
+    <target name="create-artifact">
+        <exec executable="composer" passthru="true" dir="${dir.root}" checkreturn="true" level="info">
+            <arg line="archive" />
+            <arg line="--no-interaction" />
+            <arg line="--dir=build" />
+        </exec> 
+    </target>
+</project>

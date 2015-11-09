@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset(assetsPath~'/css/admin.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-4">
+            <a href="{{ url('admin_recipe_update_description', {slug: slug}) }}" class="btn btn-primary btn-block">{{ 'recipe.goto.description'|trans }}</a>
+        </div>
+        <div class="col-lg-4">
+            <div class="well">
+                <p>{{ 'recipe.image.requirements'|trans }}</p>
+            </div>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+        <div class="col-lg-4">
+            <form action="{{ url('admin_remove_recipe_image', {slug: slug}) }}" method="POST" id="remove-recipe-image-{{ slug }}">
+                <input type="hidden" name="_method" value="DELETE" />
+                <button type="submit" class="btn btn-danger btn-block">{{ 'recipe.image.remove'|trans }}</button>
+            </form>
+        </div>
+    </div>
+    {% if hasImageForRecipe(slug) %}
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>{{ 'recipe.image.preview'|trans }}</h3>
+                <a href="{{ getImagePathForRecipe(slug) | imagine_filter('recipe_image_full_hd') }}" target="_blank"><img src="{{ getImagePathForRecipe(slug) | imagine_filter('recipe_image_bg_md') }}" alt="{{ slug }}"/></a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

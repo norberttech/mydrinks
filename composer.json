@@ -2,16 +2,55 @@
     "name": "norzechowicz/mydrinks",
     "type": "project",
     "autoload": {
-        "psr-4": { "": "src/", "Feature\\" : "features/bootstrap/" }
+        "psr-4": { "": "src/",  "MyDrinks\\Tests\\" : "tests/MyDrinks/Tests/", "Feature\\" : "features/bootstrap/" }
     },
     "require": {
-        "php": "5.6.*"
+        "php": "5.6.*",
+        "league/tactician": "^0.6.0",
+        "symfony/symfony": "2.7.*",
+        "symfony/assetic-bundle": "~2.3",
+        "symfony/monolog-bundle": "~2.4",
+        "sensio/distribution-bundle": "~4.0",
+        "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
+        "league/tactician-bundle": "^0.3.0",
+        "cocur/slugify": "1.1",
+        "league/flysystem": "^1.0",
+        "oneup/flysystem-bundle": "^1.1",
+        "incenteev/composer-parameter-handler": "~2.0",
+      
+        "isolate/unit-of-work": "1.0.*@dev",
+        "isolate/lazy-objects": "1.0.*@dev",
+        "isolate/isolate": "1.0.*@dev",
+        "isolate/framework": "1.0.*@dev",
+        "isolate/symfony-bundle": "1.0.*@dev",
+        "isolate/tactician-bridge": "1.0.*@dev",
+        "willdurand/js-translation-bundle": "^2.2",
+        "elasticsearch/elasticsearch": "^1.3",
+        "friendsofsymfony/jsrouting-bundle": "^1.5",
+        "ircmaxell/password-compat": "^1.0",
+        "twig/extensions": "^1.2",
+        "liip/imagine-bundle": "^1.3",
+        "league/flysystem-aws-s3-v3": "^1.0"
     },
     "require-dev": {
+        "bossa/phpspec2-expect": "^1.0",
         "behat/behat": "^3.0",
-        "phpspec/phpspec": "^2.2"
+        "phpspec/phpspec": "^2",
+        "phing/phing": "^2.11",
+        "phpunit/phpunit": "^4.7",
+        "fzaninotto/faker": "^1.5"
     },
-    "license": "proprietary",
+    "scripts": {
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap"
+        ],
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap"
+        ]
+    },
+    "license": "MIT",
     "authors": [
         {
             "name": "Norbert Orzechowicz",
@@ -22,8 +61,39 @@
         "bin-dir": "bin"
     },
     "extra": {
+        "symfony-app-dir": "symfony",
+        "symfony-web-dir": "public",
         "branch-alias": {
             "dev-master": "1.0-dev"
+        },
+        "incenteev-parameters": {
+            "file": "symfony/config/parameters.yml"
         }
+    },
+    "archive": {
+        "exclude": [
+            ".*",
+            "!/public/.htaccess",
+            "public/app_dev.php",
+            "public/app_test.php",
+            "var/*",
+            "/bin/*",
+            "!/bin/symfony",
+            "behat.yml.dist",
+            "phpunit.xml.dist",
+            "bower.json",
+            "build.xml",
+            "gruntfile.js",
+            "README.md",
+            "package.json",
+            "spec",
+            "tests",
+            "features",
+            "node_modules",
+            "public/upload",
+            "public/assets/vendor",
+            "public/assets/less",
+            "!/symfony/bootstrap.php.cache"
+        ]
     }
 }

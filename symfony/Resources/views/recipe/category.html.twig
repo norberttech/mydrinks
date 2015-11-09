@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset(assetsPath~'/css/layout.css') }}" />
+{% endblock %}
+
+{% set categoryName = 'category.' ~ category.id %}
+{% set categoryDescription = 'category.' ~ category.id ~ '.description' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <h1>{{ categoryName|trans }}</h1>
+                <p>
+                    {{ categoryDescription|trans }}
+                </p>
+            </div>
+        <div class="col-lg-1"></div>
+    </div>
+
+    <div id="drinks" class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+        {% for recipe in recipes.items %}
+            {{ include(':search/widget:recipeSearchResultPreview.html.twig', {recipe: recipe}) }}
+        {% endfor %}
+        </div>
+    </div>
+    
+    {% if recipes.pagesCount >= 1 %}
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                {{ include(
+                    ':search/widget:pagination.html.twig', 
+                    {
+                        results: recipes, 
+                        route: 'recipe_category',
+                        parameters: { category : categories[category.id][app.request.locale]} 
+                    }
+                ) }}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block requirejs %}
+    require(['app/page/recipe_category']);
+{% endblock %}

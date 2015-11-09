@@ -1,0 +1,106 @@
+@import 'layout.less';
+
+#recipe-image {
+    margin-top: -20px;
+    height: 600px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    position: relative;
+
+    .image {
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+    }
+    
+    .grayscale {
+        background: @color-black;
+        opacity: 0.2;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+    }
+    
+    a.logo {
+        top: 20px;
+        position: absolute;
+        color: @color-white;
+    }
+
+    a.logo:hover {
+        text-decoration: underline;
+    }
+}
+
+@media (max-width: @screen-xs-max) {
+    #recipe-image {
+        height: 200px !important;
+    }
+}
+@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+    #recipe-image {
+        height: 300px !important;
+    }
+}
+@media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+    #recipe-image {
+        height: 400px !important;
+    }
+}
+@media (min-width: @screen-lg-min) {
+    #recipe-image {
+        height: 600px !important;
+    }
+}
+
+
+#recipe {
+    margin-top: -100px;
+    .title {
+        color: @color-white;
+    }   
+    
+    .alcohol-content {
+        width: 70%;
+    }
+    
+    .social-media {
+        text-align: left;
+        margin-bottom: 10px;
+        
+        .twitter-share {
+            margin-top: 5px;
+        }
+    }
+    
+    .glass {
+        width: 220px;
+        position: absolute;
+        right: 0;
+        top: -110px;
+    }
+
+    @media (max-width: @screen-xs-max) {
+        .glass {
+            width: 100%;
+            position: relative;
+            top: 0;
+        }
+
+        .alcohol-content {
+            width: 100%;
+        }
+    }
+    
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+        .glass {
+            right: 10px;
+        }
+    }
+}

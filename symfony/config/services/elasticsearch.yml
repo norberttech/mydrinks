@@ -1,0 +1,5 @@
+services:
+    elasticsearch.client:
+        class: Elasticsearch\Client
+        arguments:
+            - { hosts: [%elasticsearch_host%] }

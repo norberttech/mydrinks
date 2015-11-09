@@ -1,0 +1,56 @@
+{#
+    @var \MyDrinks\UserInterface\Symfony\AppBundle\Form\Type\SearchType form
+#} 
+<div id="search" class="container">
+    {{ form_start(form, { attr: {id: 'search-form'}, action: path('home')}) }}
+    <div class="row">
+        <div class="col-lg-10">
+            {{ form_widget(form.query, {attr: {autocomplete: 'off'}}) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10">
+            <ul id="search-ingredient-list" class="list-inline">
+                {% for ingredient in form.ingredients.vars.data %}
+                    <li class="search-ingredient">
+                        <input type="hidden" id="ingredients_0" name="ingredients[{{ loop.index0 }}]" class="form-control" value="{{ ingredient }}">
+                        <div class="btn btn-primary">{{ ingredient|transchoice(0, {}, 'supplies') }} <span aria-hidden="true">×</span></div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <label>{{ 'search.form.ingredients.label'|trans }}</label>
+            <div class="form-group">
+                <div class="col-sm-5">
+                    <input placeholder="{{ 'search.form.ingredients.placeholder'|trans }}" type="text" autocomplete="off" id="search_ingredient_name" class="form-control" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e }}" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5">
+            <label class="col-sm-2">{{ form.alcohol.vars.label|trans }}</label>
+            <div class="col-sm-5">
+                {{ form_widget(form.alcohol.from, {attr: {placeholder : "0%"}}) }}
+                {{ form_errors(form.alcohol.from) }}
+            </div>
+            <div class="col-sm-5">
+                {{ form_widget(form.alcohol.to, {attr: {placeholder : "100%"}}) }}
+                {{ form_errors(form.alcohol.to) }}
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <label class="col-sm-3 control-label">{{ form.taste.vars.label|trans }}</label>
+            <div class="col-sm-9">
+                {{ form_widget(form.taste, {label_attr : {class: 'checkbox-inline' } }) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10 text-right">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">{{ 'search.form.submit.label'|trans }}</button>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form, {'render_rest': false}) }}
+</div>

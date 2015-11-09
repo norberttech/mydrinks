@@ -1,0 +1,7 @@
+services:
+    my_drinks.validator.unique_recipe_name:
+        class: MyDrinks\UserInterface\Symfony\AppBundle\Validator\Constraints\UniqueRecipeNameValidator
+        arguments:
+            - @my_drinks.recipes
+        tags:
+            - { name: validator.constraint_validator, alias: unique_recipe_name_validator }

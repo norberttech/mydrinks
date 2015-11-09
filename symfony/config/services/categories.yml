@@ -1,0 +1,5 @@
+services:
+    my_drinks.category.sweet:
+        class: MyDrinks\UserInterface\Symfony\AppBundle\Drink\SweetCategory
+        arguments:
+            - @my_drinks.search_engine

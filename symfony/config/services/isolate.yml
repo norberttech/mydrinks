@@ -1,0 +1,8 @@
+services:
+    isolate.entity.definition.factory.user:
+        class: MyDrinks\Infrastructure\Isolate\Entity\RecipeDefinitionFactory
+        arguments:
+            - @my_drinks.recipe.storage
+            - @my_drinks.search_engine
+        tags:
+            - { name: isolate.entity.definition.factory }

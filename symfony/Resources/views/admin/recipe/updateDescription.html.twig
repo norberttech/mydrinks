@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block _recipe_description_text_row %}
+<div class="form-group">
+    {{ form_label(form) }}
+    <div class="col-sm-10">
+        {{ form_widget(form, {attr: {rows: 15}}) }}
+        {{ form_errors(form) }}
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset(assetsPath~'/css/admin.css') }}" xmlns="http://www.w3.org/1999/html"/>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-4">
+            <a href="{{ url('admin_recipe_create') }}" class="btn btn-primary btn-block">{{ 'recipe.list'|trans }}</a>
+        </div>
+        <div class="col-lg-4">
+            <h1>{{ 'recipe.update_description.header'|trans }}</h1>
+            <br />
+            {{ form_start(form) }}
+            {{ form_row(form.text) }}
+            {{ form_row(form.IBAOfficial) }}
+            {{ form_row(form.alcoholContent) }}
+            {{ form_row(form.taste) }}
+            
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <button type="submit" id="create_recipe_submit" name="create_recipe[submit]" class="btn btn-primary">
+                        {{ 'recipe.form.update_description.submit.label'|trans }}
+                    </button>
+                    <a class="btn btn-default pull-right" href="{{ url('admin_recipe_add_step', {slug: slug}) }}">
+                        {{ 'recipe.form.update_description.add_steps.label'|trans }}
+                    </a>
+                </div>
+            </div>
+            {{ form_end(form) }}
+            
+            <p>
+               <small><em>{{ 'recipe.form.update_description.skip.description'|trans }}</em></small>
+            </p>
+        </div>
+        <div class="col-lg-4">
+            {{ render(controller('AppBundle:AdminRecipe:details', {'slug' : slug })) }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,62 @@
+imports:
+    - { resource: services/application.yml }
+    - { resource: services/categories.yml }
+    - { resource: services/elasticsearch.yml }
+    - { resource: services/isolate.yml }
+    - { resource: services/recipe.yml }
+    - { resource: services/recipe.yml }
+    - { resource: services/tactician.yml }
+    - { resource: services/twig.yml }
+    - { resource: services/validators.yml }
+
+parameters:
+
+services:
+    twig.extension.text:
+       class: Twig_Extensions_Extension_Text
+       tags:
+           - { name: twig.extension }
+           
+    slugify:
+        class: Cocur\Slugify\Slugify
+        public: false;
+
+    liip_imagein.binary.loader.http:
+        class: MyDrinks\UserInterface\Symfony\AppBundle\Imagine\Binary\Loader\HttpLoader
+        arguments:
+            - @liip_imagine.mime_type_guesser
+            - @liip_imagine.extension_guesser
+        tags: 
+            - { name: liip_imagine.binary.loader, loader: http_loader }
+
+    liip_imagein.binary.loader.s3:
+        class: MyDrinks\UserInterface\Symfony\AppBundle\Imagine\Binary\Loader\S3Loader
+        arguments:
+            - @liip_imagine.mime_type_guesser
+            - @liip_imagine.extension_guesser
+            - @liip_imagein.binary.loader.http
+            - @my_drinks.s3_client
+            - %aws_s3_images_bucket%
+            - %aws_s3_images_bucket_prefix%
+        tags: 
+            - { name: liip_imagine.binary.loader, loader: s3_loader }
+            
+    my_drinks.s3_client:
+        class: Aws\S3\S3Client
+        factory_class: Aws\S3\S3Client
+        factory_method: factory
+        arguments:
+            -
+                credentials:
+                    key: "%aws_s3_key%"
+                    secret: "%aws_s3_secret%"
+                region: "%aws_s3_images_bucket_region%"
+                version: "2006-03-01"
+                
+    my_drinks.image.url_resolver:
+        class: MyDrinks\Infrastructure\Application\Recipe\LocalFilesystemUrlResolver
+        arguments:
+            - %recipe_images_url_prefix%
+      
+      
+   
