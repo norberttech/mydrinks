@@ -17,16 +17,16 @@ class CreateNewRecipeHandler
     /**
      * @var Factory
      */
-    private $recipeFactor;
+    private $recipeFactory;
 
     /**
      * @param Recipes $recipes
-     * @param Factory $recipeFactor
+     * @param Factory $recipeFactory
      */
-    public function __construct(Recipes $recipes, Factory $recipeFactor)
+    public function __construct(Recipes $recipes, Factory $recipeFactory)
     {
         $this->recipes = $recipes;
-        $this->recipeFactor = $recipeFactor;
+        $this->recipeFactory = $recipeFactory;
     }
 
     /**
@@ -35,7 +35,7 @@ class CreateNewRecipeHandler
      */
     public function handle(CreateNewRecipeCommand $command)
     {
-        $recipe = $this->recipeFactor->createRecipe($command->name);
+        $recipe = $this->recipeFactory->createRecipe($command->name);
         
         if ($this->recipes->hasRecipeWithName($recipe->getName())) {
             throw new RecipeAlreadyExistsException();
