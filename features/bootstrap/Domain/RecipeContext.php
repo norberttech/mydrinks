@@ -60,12 +60,12 @@ class RecipeContext implements Context, SnippetAcceptingContext
     public function __construct()
     {
         $this->recipes = new InMemoryRecipes();
-        $recipeFactor = new DomainFactory();
+        $recipeFactory = new DomainFactory();
 
         $commandHandlerMiddleware = new CommandHandlerMiddleware(
             new ClassNameExtractor(),
             new InMemoryLocator([
-                CreateNewRecipeCommand::class => new CreateNewRecipeHandler($this->recipes, $recipeFactor),
+                CreateNewRecipeCommand::class => new CreateNewRecipeHandler($this->recipes, $recipeFactory),
                 AddRecipeStepCommand::class => new AddRecipeStepHandler($this->recipes),
                 RemoveRecipeStepCommand::class => new RemoveRecipeStepHandler($this->recipes)
             ]),
